@@ -1,0 +1,584 @@
+html_content = """<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Profesional & Konten Kreator</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk Icon Sosial Media & Navigasi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #F8F9FA;
+            --surface-color: #FFFFFF;
+            --text-primary: #2D3748;
+            --text-secondary: #718096;
+            --accent-primary: #81A1C1; /* Soft Nordic Blue */
+            --accent-hover: #5E81AC;
+            --soft-sage: #A3BE8C;
+            --border-color: #E2E8F0;
+            --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        /* Navigasi Cepat / Fixed Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(248, 249, 250, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-hover);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--accent-hover);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-hover);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Layout Utama Container */
+        section {
+            padding: 120px 8% 80px 8%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-primary);
+            margin-top: 8px;
+            border-radius: 2px;
+        }
+
+        /* 1. HOME & PORTOFOLIO SECTION */
+        #home {
+            text-align: center;
+            align-items: center;
+            padding-top: 140px;
+        }
+
+        .profile-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--surface-color);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        #home h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        /* Animasi Teks Muncul Saat Halaman Diakses */
+        .typed-container {
+            font-size: 1.25rem;
+            color: var(--accent-hover);
+            font-weight: 600;
+            margin-bottom: 16px;
+            min-height: 36px;
+        }
+
+        .address-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            background: var(--surface-color);
+            padding: 8px 18px;
+            border-radius: 30px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .bio-text {
+            max-width: 680px;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0 auto;
+        }
+
+        /* Portofolio Detail Grid (Pendidikan, Pengalaman, Prestasi, Riwayat Hidup) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--surface-color);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+            border-color: var(--accent-primary);
+        }
+
+        .card .year {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-hover);
+            background: rgba(129, 161, 193, 0.12);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* 2. ABOUT (Konten Kreator) */
+        .about-wrapper {
+            background: var(--surface-color);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-wrapper p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+        }
+
+        .creator-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 15px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 25px;
+        }
+
+        .stat-item h4 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .stat-item span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* 3. KONTAK ME SECTION */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .contact-card {
+            background: var(--surface-color);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        /* Warna khusus ikon aplikasi sosial media */
+        .icon-phone { background-color: #25D366; }
+        .icon-email { background-color: #EA4335; }
+        .icon-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .icon-tiktok { background-color: #000000; }
+        .icon-fb { background-color: #1877F2; }
+
+        .contact-info h3 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .contact-info p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* Hak Cipta Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav ul { display: none; } /* Sederhana untuk mobile */
+            section { padding: 100px 5% 60px 5%; min-height: auto; }
+            #home h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi Cepat -->
+    <header>
+        <div class="logo">Porto<span>folio.</span></div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#pendidikan">Pendidikan</a></li>
+                <li><a href="#pengalaman">Pengalaman</a></li>
+                <li><a href="#prestasi">Prestasi</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 1. HOME SECTION -->
+    <section id="home">
+        <div class="profile-container">
+            <!-- Placeholder gambar diri profesional bernuansa aesthetic -->
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Foto Diri" class="profile-img">
+        </div>
+        <h1>Alexandria Kirana</h1>
+        <!-- Animasi teks ketik muncul saat halaman diakses -->
+        <div class="typed-container" id="typed-text"></div>
+        <div class="address-box">
+            <i class="fa-solid fa-location-dot" style="color: var(--accent-hover);"></i>
+            <span>Jl. Sudirman No. 45, Menteng, Jakarta Pusat</span>
+        </div>
+        <p class="bio-text">
+            Seorang profesional kreatif yang berdedikasi tinggi menggabungkan keahlian industri digital dengan passion sebagai pembuat konten interaktif bernilai positif.
+        </p>
+    </section>
+
+    <!-- 2. RIWAYAT PENDIDIKAN & RIWAYAT HIDUP -->
+    <section id="pendidikan">
+        <h2 class="section-title">Riwayat Pendidikan & Hidup</h2>
+        <div class="grid-container">
+            <div class="card">
+                <span class="year">2018 - 2022</span>
+                <h3>Sarjana Ilmu Komunikasi (S.I.Kom)</h3>
+                <p>Universitas Indonesia Utama - Lulus dengan predikat Cumlaude, aktif dalam organisasi media kampus dan kepenulisan.</p>
+            </div>
+            <div class="card">
+                <span class="year">2015 - 2018</span>
+                <h3>SMA Negeri Unggulan 1</h3>
+                <p>Jurusan Ilmu Pengetahuan Sosial (IPS) - Peraih siswa berprestasi bidang jurnalistik sekolah.</p>
+            </div>
+            <div class="card">
+                <span class="year">Ringkasan Riwayat Hidup</span>
+                <h3>Profil Singkat & Karir</h3>
+                <p>Berpengalaman lebih dari 4 tahun di bidang komunikasi strategis, manajemen media digital, dan pengembangan komunitas online secara konsisten.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. PENGALAMAN -->
+    <section id="pengalaman">
+        <h2 class="section-title">Pengalaman Profesional</h2>
+        <div class="grid-container">
+            <div class="card">
+                <span class="year">2023 - Sekarang</span>
+                <h3>Lead Content Strategist</h3>
+                <p>PT Kreasi Digital Nusantara — Mengelola strategi distribusi konten lintas platform dan memimpin tim kreatif visual.</p>
+            </div>
+            <div class="card">
+                <span class="year">2021 - 2023</span>
+                <h3>Digital Campaign Specialist</h3>
+                <p>Agensi Kreatif Metamorfosa — Merancang dan mengeksekusi kampanye pemasaran digital untuk berbagai brand nasional.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. PRESTASI -->
+    <section id="prestasi">
+        <h2 class="section-title">Prestasi & Penghargaan</h2>
+        <div class="grid-container">
+            <div class="card">
+                <span class="year">2024</span>
+                <h3>Top 10 Creator Inspiratif Nasional</h3>
+                <p>Dianugerahi oleh Kementerian Pariwisata dan Ekonomi Kreatif atas kontribusi konten edukasi digital.</p>
+            </div>
+            <div class="card">
+                <span class="year">2022</span>
+                <h3>Best Digital Campaign Award</h3>
+                <p>Apresiasi tahunan dari Asosiasi Media Digital Indonesia atas inovasi kampanye interaktif.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. ABOUT (Aktifitas Konten Kreator) -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-wrapper">
+            <p>
+                Selain mendedikasikan waktu di dunia profesional korporat, saya aktif sebagai <strong>Konten Kreator</strong> independen yang berfokus pada topik edukasi produktivitas, literasi digital, dan gaya hidup seimbang. 
+            </p>
+            <p>
+                Melalui platform sosial media, saya senang membagikan tips praktis, ulasan teknologi penunjang kerja, serta cerita di balik layar kehidupan seorang pekerja kreatif. Komunitas yang telah dibangun kini menjangkau ratusan ribu pengikut aktif.
+            </p>
+            <div class="creator-stats">
+                <div class="stat-item">
+                    <h4>350K+</h4>
+                    <span>Total Pengikut</span>
+                </div>
+                <div class="stat-item">
+                    <h4>15M+</h4>
+                    <span>Total Tayangan Konten</span>
+                </div>
+                <div class="stat-item">
+                    <h4>50+</h4>
+                    <span>Brand Collaboration</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. KONTAK ME (No HP, Email, IG, TikTok, FB dengan Logo Aplikasi) -->
+    <section id="kontak">
+        <h2 class="section-title">Kontak Me</h2>
+        <div class="contact-grid">
+            <!-- WhatsApp / No HP -->
+            <a href="https://wa.me/6281234567890" target="_blank" class="contact-card">
+                <div class="contact-icon icon-phone">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <div class="contact-info">
+                    <h3>WhatsApp / Telepon</h3>
+                    <p>+62 812-3456-7890</p>
+                </div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:halo@alexandriakirana.com" class="contact-card">
+                <div class="contact-icon icon-email">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="contact-info">
+                    <h3>Email Resmi</h3>
+                    <p>halo@alexandriakirana.com</p>
+                </div>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://instagram.com" target="_blank" class="contact-card">
+                <div class="contact-icon icon-ig">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div class="contact-info">
+                    <h3>Instagram</h3>
+                    <p>@alexandriakir</p>
+                </div>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://tiktok.com" target="_blank" class="contact-card">
+                <div class="contact-icon icon-tiktok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </div>
+                <div class="contact-info">
+                    <h3>TikTok</h3>
+                    <p>@alexandrakirana</p>
+                </div>
+            </a>
+
+            <!-- Facebook -->
+            <a href="https://facebook.com" target="_blank" class="contact-card">
+                <div class="contact-icon icon-fb">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </div>
+                <div class="contact-info">
+                    <h3>Facebook</h3>
+                    <p>Alexandria Kirana Official</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Hak Cipta -->
+    <footer>
+        <p>&copy; 2026 Alexandria Kirana. Hak Cipta Dilindungi Undang-Undang.</p>
+    </footer>
+
+    <!-- JavaScript: Animasi Teks Muncul Saat Halaman Diakes -->
+    <script>
+        const roles = [
+            "Professional Content Strategist",
+            "Independent Content Creator",
+            "Digital Media Enthusiast"
+        ];
+        
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedTarget = document.getElementById("typed-text");
+
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typedTarget.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTarget.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typingSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typingSpeed = 2000; // Jeda sebelum menghapus
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typingSpeed = 500;
+            }
+
+            setTimeout(typeEffect, typingSpeed);
+        }
+
+        // Jalankan animasi saat halaman dimuat
+        document.addEventListener("DOMContentLoaded", function() {
+            if (roles.length) {
+                setTimeout(typeEffect, 500);
+            }
+        });
+    </script>
+</body>
+</html>
+"""
+
+with open("portofolio.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
